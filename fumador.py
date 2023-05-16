@@ -17,11 +17,18 @@ class Fumador:
         while True:
             #Esperar hasta qu eambos ingredientes estén disponibles
             if self.ing1 in self.ingredientes and self.ing2 in self.ingredientes:
-                
+
                 #Tomar los ingredientes
                 self.ingredientes.remove(self.ing1)
                 self.ingredientes.remove(self.ing2)
                 print(f'Fumador {self.id} tomando {self.ing1} y {self.ing2} y fumando')
                 time.sleep(random.randint(1, 3))
 
-                #Terminar 
+                #Agregar los ingredientes usados nuevamente a la lista de inredientes
+                self.ingredientes.append(self.ing1)
+                self.ingredientes.append(self.ing2)
+
+                #Publicar un mensaje para indicar que el fumador ha terminado
+                app.send_task('agente.tarea_terminada', args = [self.id])
+                break
+            
